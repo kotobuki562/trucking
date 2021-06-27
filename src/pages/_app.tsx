@@ -1,9 +1,12 @@
-import React from 'react';
 import '../../styles/index.css';
-import type { AppProps } from 'next/app';
-import { UserProvider } from '@auth0/nextjs-auth0';
+
 import { ApolloProvider } from '@apollo/client/react';
+import { UserProvider } from '@auth0/nextjs-auth0';
+import type { AppProps } from 'next/app';
+import React from 'react';
+
 import { apolloClient } from '../apollo/client';
+import { ThemeProvider } from 'next-themes';
 
 const App = ({
   Component,
@@ -13,7 +16,9 @@ const App = ({
   return (
     <ApolloProvider client={apolloClient}>
       <UserProvider user={user}>
-        <Component {...pageProps} />
+        <ThemeProvider attribute="class">
+          <Component {...pageProps} />
+        </ThemeProvider>
       </UserProvider>
     </ApolloProvider>
   );
