@@ -1,15 +1,31 @@
 module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
-  parserOptions: { project: './tsconfig.json' },
+  parserOptions: { project: './tsconfig.json', ecmaFeatures: { jsx: true } },
+  settings: {
+    react: { version: 'detect' },
+    tailwindcss: {
+      config: 'tailwind.config.js',
+      removeDuplicates: true,
+      prependCustom: false,
+      whitelist: ['prose-light'],
+    },
+  },
   env: { es2021: true, browser: true, jest: true, node: true },
-  plugins: ['simple-import-sort', 'tailwindcss'],
+  plugins: [
+    '@typescript-eslint',
+    'import',
+    'simple-import-sort',
+    'tailwindcss',
+  ],
   extends: [
+    'plugin:tailwindcss/recommended',
     'eslint:recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
+    'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
     'plugin:jsx-a11y/recommended',
-    'next',
-    'next/core-web-vitals',
     'prettier',
   ],
   rules: {
@@ -70,6 +86,7 @@ module.exports = {
         prefix: ['is', 'has', 'should'],
       },
     ],
+    'jsx-a11y/no-autofocus': 'off',
     'jsx-a11y/anchor-is-valid': [
       'error',
       {

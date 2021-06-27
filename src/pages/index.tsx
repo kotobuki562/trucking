@@ -1,35 +1,84 @@
-import { gql, useMutation, useQuery, useSubscription } from '@apollo/client';
 import React from 'react';
-import { Layout } from '../components/Layout';
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import Lottie from 'react-lottie';
+import { useUser } from '@auth0/nextjs-auth0';
+import * as truckAnime from 'src/animations/truck.json';
+import * as locationAnime from 'src/animations/location.json';
+import * as messageAnime from 'src/animations/message.json';
 
 const Home = memo(() => {
-  const { data: orderData } = useQuery(GET_ALL_ORDERS);
+  const { user } = useUser();
+  const router = useRouter();
+  const truckDefault = {
+    loop: true,
+    autoplay: true,
+    animationData: truckAnime,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  };
 
-  console.log(orderData);
+  const messageDefault = {
+    loop: true,
+    autoplay: true,
+    animationData: messageAnime,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  };
 
+  const locationDefault = {
+    loop: true,
+    autoplay: true,
+    animationData: locationAnime,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  };
+
+  useEffect(() => {
+    user ? router.push('/dashboard') : null;
+  }, [user]);
   return (
-    <Layout>
-      <div className="text-red-500">
-        <p>HOME</p>
-        <a href="/api/auth/login">Login</a>
-        <a href="/api/auth/login">Login</a>
+    <main className="text-white w-full md:flex">
+      <div className="md:w-1/2 h-screen">
+        <div className="flex flex-col items-center">
+          <div className="w-60 h-60">
+            <Lottie options={truckDefault} height="100%" width="100%" />
+          </div>
+          <div>
+            <p className="text-2xl font-semibold">配達状況がまるわかり。</p>
+          </div>
+        </div>
+
+        <div className="flex flex-col items-center">
+          <div className="w-60 h-60">
+            <Lottie options={locationDefault} height="100%" width="100%" />
+          </div>
+          <div>
+            <p className="text-2xl font-semibold">配達状況をストック。</p>
+          </div>
+        </div>
+
+        <div className="flex flex-col items-center">
+          <div className="w-60 h-60">
+            <Lottie options={messageDefault} height="100%" width="100%" />
+          </div>
+          <div>
+            <p className="text-2xl font-semibold">なけなしのチャット機能。</p>
+          </div>
+        </div>
       </div>
-    </Layout>
+
+      <div className="md:w-1/2 h-screen bg-yellow-300 flex flex-col items-center">
+        <h2 className="font-semibold text-2xl text-blue-400">
+          ちゃちゃっと始めましょう。
+        </h2>
+      </div>
+    </main>
   );
 });
-const GET_ALL_ORDERS = gql`
-  query Getorders {
-    orders {
-      id
-      user_id
-      number
-      itemName
-      description
-      delivered
-      createdAt
-      updatedAt
-    }
-  }
-`;
+
 export default Home;
