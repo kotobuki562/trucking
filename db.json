@@ -1,0 +1,157 @@
+{
+  "chatRoom": [
+    {
+      "id": "f9712c24-4982-45c3-95b3-df771084527b",
+      "createrId": "auth0|60bc36b7c6a5fa006b943981",
+      "password": "こんにちは",
+      "roomName": "我々と共に生きよ",
+      "createdAt": "2021-07-03T16:23:44+09:00",
+      "messages": [
+        {
+          "id": "f9712c24-4982-45c3-95b3-df771084527b",
+          "userId": "auth0|60bc36b7c6a5fa006b943981",
+          "text": "こんにちは",
+          "createdAt": "2021-07-03T16:23:44+09:00"
+        },
+        {
+          "id": "e08f7a1d-74f6-4961-ab32-aa3495b18095",
+          "userId": "auth0|60bc36b7c6a5fa006b943981",
+          "text": "どうも",
+          "createdAt": "2021-07-03T16:23:54+09:00"
+        },
+        {
+          "id": "939bef1d-ddf5-468f-bd9f-7bca87321535",
+          "userId": "otherUser",
+          "text": "どうも",
+          "createdAt": "2021-07-03T16:24:41+09:00"
+        },
+        {
+          "id": "3ec65ba8-0a98-4983-b548-993bc8a7f8ef",
+          "userId": "auth0|60bc36b7c6a5fa006b943981",
+          "text": "やあ",
+          "createdAt": "2021-07-03T16:24:47+09:00"
+        },
+        {
+          "id": "3783e88a-f256-44f8-880e-c2a65ff99c79",
+          "userId": "auth0|60bc36b7c6a5fa006b943981",
+          "imageUrl": "https://s.gravatar.com/avatar/eafaea3c64a417cd096c968315d428fd?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fbo.png",
+          "text": "どうも",
+          "createdAt": "2021-07-03T16:27:25+09:00"
+        },
+        {
+          "id": "e4aeda1c-13aa-414c-adcf-9226874908f0",
+          "userId": "auth0|60bc36b7c6a5fa006b943981",
+          "imageUrl": "https://s.gravatar.com/avatar/eafaea3c64a417cd096c968315d428fd?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fbo.png",
+          "text": "konnnitiha",
+          "createdAt": "2021-07-03T16:29:09+09:00"
+        },
+        {
+          "id": "5c8f2c93-242a-40e6-82c8-229a5396594f",
+          "userId": "otherUser",
+          "text": "そういや",
+          "createdAt": "2021-07-03T16:29:13+09:00"
+        },
+        {
+          "id": "741c1410-5c6b-479c-80f6-43fffe0b3f87",
+          "userId": "otherUser",
+          "text": "何かが違う",
+          "createdAt": "2021-07-03T16:29:21+09:00"
+        },
+        {
+          "id": "5a644069-51eb-45d8-8711-b40d4f1c1564",
+          "userId": "otherUser",
+          "text": "何がとは",
+          "createdAt": "2021-07-03T16:29:27+09:00"
+        },
+        {
+          "id": "6e52654c-13cc-4560-9a08-96ea8569bdd5",
+          "userId": "auth0|60bc36b7c6a5fa006b943981",
+          "imageUrl": "https://s.gravatar.com/avatar/eafaea3c64a417cd096c968315d428fd?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fbo.png",
+          "text": "いや聞いてない",
+          "createdAt": "2021-07-03T16:29:33+09:00"
+        },
+        {
+          "id": "ea019956-fda6-473a-95fd-28b4ef8833d7",
+          "userId": "otherUser",
+          "text": "そうなのか",
+          "createdAt": "2021-07-03T16:29:39+09:00"
+        },
+        {
+          "id": "9dff2eed-877c-4b1d-9ad4-8b2a6d988f63",
+          "userId": "auth0|60bc36b7c6a5fa006b943981",
+          "text": "na",
+          "createdAt": "2021-07-03T16:35:45+09:00"
+        },
+        {
+          "id": "73033c8c-1ef8-4a63-90a1-adc3409a72bc",
+          "userId": "auth0|60bc36b7c6a5fa006b943981",
+          "text": "yaa",
+          "createdAt": "2021-07-03T16:36:40+09:00"
+        },
+        {
+          "id": "32a0e081-408c-44c0-9483-72060a08452c",
+          "userId": "otherUser",
+          "text": "なんだこれ",
+          "createdAt": "2021-07-03T16:37:03+09:00"
+        }
+      ]
+    },
+    {
+      "id": "8efe6064-69d4-4c48-a19f-d589e601cd71",
+      "createrId": "auth0|60bc36b7c6a5fa006b943981",
+      "password": "tinnko",
+      "roomName": "坂きん",
+      "createdAt": "2021-07-03T16:38:07+09:00",
+      "messages": [
+        {
+          "id": "8efe6064-69d4-4c48-a19f-d589e601cd71",
+          "userId": "auth0|60bc36b7c6a5fa006b943981",
+          "text": "やあ",
+          "createdAt": "2021-07-03T16:38:07+09:00"
+        },
+        {
+          "id": "1d8e8359-4514-46cf-bbd2-cad51e5f38eb",
+          "userId": "otherUser",
+          "text": "やあ",
+          "createdAt": "2021-07-03T16:38:17+09:00"
+        },
+        {
+          "id": "c4cfbfb8-a862-4e57-836c-3738ca6818b1",
+          "userId": "auth0|60bc36b7c6a5fa006b943981",
+          "text": "たやや",
+          "createdAt": "2021-07-03T16:38:21+09:00"
+        },
+        {
+          "id": "94eb9ee0-5b4d-4221-883f-9c46be59518b",
+          "userId": "otherUser",
+          "text": "",
+          "createdAt": "2021-07-03T16:39:32+09:00"
+        },
+        {
+          "id": "d8734f38-3492-4351-921a-6b80f25f391c",
+          "userId": "otherUser",
+          "text": "",
+          "createdAt": "2021-07-03T16:39:46+09:00"
+        },
+        {
+          "id": "0db8339e-9b42-441f-92cd-dc9fb19a33ed",
+          "userId": "otherUser",
+          "text": "",
+          "createdAt": "2021-07-03T16:39:54+09:00"
+        },
+        {
+          "id": "9664b637-02c9-454d-807f-544691cc9194",
+          "userId": "auth0|60bc36b7c6a5fa006b943981",
+          "text": "うんこ",
+          "createdAt": "2021-07-03T16:40:51+09:00"
+        },
+        {
+          "id": "45462c06-8a8e-4e08-b8ab-cc15f12c7a14",
+          "userId": "otherUser",
+          "text": "っっっd",
+          "createdAt": "2021-07-03T16:41:33+09:00"
+        }
+      ]
+    }
+  ]
+}

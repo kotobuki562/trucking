@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.scrollContent {
+  scroll-snap-type: y mandatory;
+}
+.area {
+  scroll-snap-align: center;
+}
