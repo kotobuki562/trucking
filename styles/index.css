@@ -6,5 +6,5 @@
   scroll-snap-type: y mandatory;
 }
 .area {
-  scroll-snap-align: center;
+  scroll-snap-align: start;
 }

@@ -5,11 +5,19 @@ export type ChatRoom = {
   roomName: string;
   createdAt: Date | string;
   messages: Message[];
+  users: User[];
 };
-
+export type User = {
+  id: string;
+  name: string;
+  imageUrl: string;
+  createdAt: Date | string;
+};
 export type Message = {
   id: string;
   userId: string;
+  userName: string;
+  imageUrl: string;
   text: string;
   createdAt: Date | string;
 };

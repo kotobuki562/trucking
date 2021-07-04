@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { useUser } from '@auth0/nextjs-auth0';
 import type { ChatRoom } from 'src/types/chat';
 import { formatISO } from 'date-fns';
+import { RightBar } from 'src/components/RightBar';
 
 const fetcher = async (url: string) => {
   const res = await fetch(url);
@@ -21,6 +22,7 @@ export default withPageAuthRequired(function Messages() {
     fetcher
   );
   const { data: chatRooms } = useSWR('http://localhost:3001/chatRoom', fetcher);
+
   const { user } = useUser();
   const uuid = uuidv4();
   const [roomName, setRoomName] = useState('');
@@ -44,10 +46,19 @@ export default withPageAuthRequired(function Messages() {
         password: password,
         roomName: roomName,
         createdAt: formatISO(new Date()),
+        users: [
+          {
+            id: user?.sub,
+            name: user?.nickname,
+            imageUrl: user?.picture,
+            createdAt: formatISO(new Date()),
+          },
+        ],
         messages: [
           {
             id: uuid,
             userId: user?.sub,
+            userName: user?.nickname,
             text: text,
             createdAt: formatISO(new Date()),
           },
@@ -71,37 +82,9 @@ export default withPageAuthRequired(function Messages() {
 
   return (
     <Layout>
-      <div className="group overflow-y-scroll hover:w-64 w-14 md:w-64 h-screen fixed duration-300 right-0 rounded-l-2xl hover:border-l-4 hover:border-t-4 md:border-l-4 md:border-t-4 border-white bg-blue-300">
+      <div className="group overflow-y-scroll hover:w-64 w-14 md:w-64 h-screen fixed duration-300 right-0 rounded-l-2xl bg-blue-300">
         {arrayChatRoom?.map((room) => {
-          return (
-            <Link href={`/messages/${room.id}`} key={room.id}>
-              <a>
-                <div className="flex flex-col items-center group-hover:pl-4 md:pl-4 group-hover:flex-row md:flex-row duration-200 py-2 hover:bg-blue-400 hover:text-white">
-                  <p className="hidden group-hover:block md:block font-semibold">
-                    {room.roomName}
-                  </p>
-                </div>
-              </a>
-            </Link>
-          );
-        })}
-        {limitImages?.map((image: any) => {
-          return (
-            <Link href="/" key={image.id}>
-              <a>
-                <div className="flex flex-col items-center group-hover:pl-4 md:pl-4 group-hover:flex-row md:flex-row duration-200 py-2 hover:bg-blue-400 hover:text-white">
-                  <img
-                    className="w-12 h-12 border-4 border-blue-400 group-hover:mr-2 md:mr-2 rounded-full"
-                    src={image.thumbnailUrl}
-                    alt={image.title}
-                  />
-                  <p className="hidden group-hover:block md:block font-semibold">
-                    {image.title.slice(0, 15)}
-                  </p>
-                </div>
-              </a>
-            </Link>
-          );
+          return <RightBar key={room.id} {...room} />;
         })}
       </div>
       <div className="p-8 h-full mr-14 md:mr-64">
