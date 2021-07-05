@@ -109,14 +109,14 @@ export default withPageAuthRequired(function Message() {
 
   return (
     <Layout>
-      <div className="group overflow-y-scroll hover:w-64 w-14 md:w-64 h-screen fixed duration-300 right-0 rounded-l-2xl border-white bg-blue-300">
+      <div className="group overflow-y-scroll hover:w-64 w-14 md:w-64 h-screen fixed duration-300 bg-blue-300">
         {chatRooms?.map((room) => {
           return <RightBar key={room.id} {...room} />;
         })}
       </div>
 
-      <div className="p-8 h-full mr-14 md:mr-64">
-        <div className="bg-blue-100 overflow-y-scroll rounded-2xl h-full">
+      <div className="h-full ml-14 md:ml-64">
+        <div className="bg-blue-100 w-full h-full">
           <div className="w-full px-4">
             {messages?.map((data) => {
               if (data.userId === `${user?.sub}`) {
@@ -130,7 +130,7 @@ export default withPageAuthRequired(function Message() {
                         {data.text}
                       </span>
                       <p className="text-right">
-                        {format(new Date(data.createdAt), 'HH:mm') || 'none'}
+                        {format(new Date(data.createdAt), 'MM/dd HH:mm')}
                       </p>
                     </div>
                     <img
@@ -149,7 +149,7 @@ export default withPageAuthRequired(function Message() {
                         {data.text}
                       </span>
                       <p className="text-left">
-                        {format(new Date(data.createdAt), 'HH:mm') || 'none'}
+                        {format(new Date(data.createdAt), 'MM/dd HH:mm')}
                       </p>
                     </div>
                     <img
@@ -162,26 +162,27 @@ export default withPageAuthRequired(function Message() {
               }
             })}
           </div>
+          <div id="bottom-of-list" className="pt-36" ref={messageRef} />
         </div>
-        <input
-          onChange={handleChangeOneUserComment}
-          value={oneUserComment}
-          type="text"
-          placeholder="oneUser"
-          className="w-full p-2 bg-blue-300 rounded-2xl focus:outline-none focus:ring-4 ring-blue-200 duration-200"
-        />
+        <div className="fixed w-full bottom-0">
+          <input
+            onChange={handleChangeOneUserComment}
+            value={oneUserComment}
+            placeholder="oneUser"
+            className="p-2 w-full rounded-2xl bg-blue-400 focus:outline-none duration-200"
+          />
+          <button onClick={handleClickAddOneUserComment}>onUser</button>
+          <button onClick={scrollToBottomOfList}>スクロール</button>
 
-        <button onClick={handleClickAddOneUserComment}>onUser</button>
-        <button onClick={scrollToBottomOfList}>スクロール</button>
-        <div id="bottom-of-list" ref={messageRef} />
-        <input
-          onChange={handleChangeOtherUserComment}
-          value={otherUserComment}
-          type="text"
-          placeholder="otherUser"
-          className="w-full p-2 bg-blue-300 rounded-2xl focus:outline-none focus:ring-4 ring-blue-200 duration-200"
-        />
-        <button onClick={handleClickAddOtherUserComment}>otherUser</button>
+          <input
+            onChange={handleChangeOtherUserComment}
+            value={otherUserComment}
+            type="text"
+            placeholder="otherUser"
+            className="p-2 w-full bg-blue-400 rounded-2xl focus:outline-none focus:ring-4 ring-blue-200 duration-200"
+          />
+          <button onClick={handleClickAddOtherUserComment}>otherUser</button>
+        </div>
       </div>
     </Layout>
   );
