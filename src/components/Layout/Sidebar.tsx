@@ -1,8 +1,10 @@
-import Link from 'next/link';
-import React, { memo } from 'react';
-import { useRouter } from 'next/router';
-import { HomeIcon, UserIcon, ChatIcon } from '@heroicons/react/solid';
+/* eslint-disable react/display-name */
+import { ChatIcon, HomeIcon, UserIcon } from '@heroicons/react/solid';
 import cc from 'classcat';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { memo } from 'react';
+
 const links = [
   {
     pathName: 'DASHBOARD',
@@ -23,10 +25,9 @@ const links = [
 
 export const Sidebar = memo(() => {
   const router = useRouter();
-  console.log(router);
 
   return (
-    <nav className="group fixed py-8 flex flex-col items-center hover:items-baseline md:items-baseline top-14 left-0 w-14 hover:w-64 md:w-64 bg-yellow-300 h-full transition-all duration-300 border-none z-10 sidebar">
+    <nav className="group flex fixed top-14 left-0 z-10 flex-col items-center hover:items-baseline md:items-baseline py-8 w-14 hover:w-64 md:w-64 h-full bg-yellow-300 border-none transition-all duration-300">
       {links.map((link) => {
         return (
           <Link key={link.href} href={link.href}>
@@ -38,7 +39,7 @@ export const Sidebar = memo(() => {
                   : null,
               ])}>
               <div className="w-8">{link.icon}</div>
-              <p className="hidden md:block ml-2 group-hover:block">
+              <p className="hidden group-hover:block md:block ml-2">
                 {link.pathName}
               </p>
             </a>

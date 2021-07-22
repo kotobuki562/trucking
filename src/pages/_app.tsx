@@ -1,10 +1,10 @@
+/* eslint-disable react/destructuring-assignment */
 import '../../styles/index.css';
 
 import { ApolloProvider } from '@apollo/client/react';
 import { UserProvider } from '@auth0/nextjs-auth0';
 import type { AppProps } from 'next/app';
 import { ThemeProvider } from 'next-themes';
-import React from 'react';
 
 import { apolloClient } from '../apollo/client';
 

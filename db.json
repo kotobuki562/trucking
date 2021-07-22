@@ -638,6 +638,87 @@
       "text": "どうも",
       "createdAt": "2021-07-05T22:27:26+09:00",
       "chatRoomId": "1f2863ec-c075-44aa-badb-1abcc0280d86"
+    },
+    {
+      "id": "6cd59838-61b4-40fa-b694-7b672824e792",
+      "userId": "auth0|60bc36b7c6a5fa006b943981",
+      "userName": "bos324457",
+      "imageUrl": "https://s.gravatar.com/avatar/eafaea3c64a417cd096c968315d428fd?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fbo.png",
+      "text": "おっっす",
+      "createdAt": "2021-07-08T19:22:41+09:00",
+      "chatRoomId": "1f2863ec-c075-44aa-badb-1abcc0280d86"
+    },
+    {
+      "id": "cfc42895-2a51-4554-9578-3f2587f70527",
+      "userId": "auth0|60bc36b7c6a5fa006b943981",
+      "userName": "bos324457",
+      "imageUrl": "https://s.gravatar.com/avatar/eafaea3c64a417cd096c968315d428fd?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fbo.png",
+      "text": "我々と共に遊ぼう",
+      "createdAt": "2021-07-08T20:37:03+09:00",
+      "chatRoomId": "4be31599-0a92-4a8e-94ce-db550fd60e6e"
+    },
+    {
+      "id": "08646b65-7a09-4623-a989-3d5a783ada7b",
+      "userId": "auth0|60bc36b7c6a5fa006b943981",
+      "userName": "bos324457",
+      "imageUrl": "https://s.gravatar.com/avatar/eafaea3c64a417cd096c968315d428fd?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fbo.png",
+      "text": "コンちゃ",
+      "createdAt": "2021-07-08T20:44:22+09:00",
+      "chatRoomId": "4be31599-0a92-4a8e-94ce-db550fd60e6e"
+    },
+    {
+      "id": "d31ca26a-d3bb-4157-8b77-9c3c54ae0e78",
+      "userId": "otherUser",
+      "userName": "otherUser",
+      "imageUrl": "https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb",
+      "text": "どうも",
+      "createdAt": "2021-07-08T20:44:38+09:00",
+      "chatRoomId": "4be31599-0a92-4a8e-94ce-db550fd60e6e"
+    },
+    {
+      "id": "ab131f16-7403-430e-b5cb-b7c908c05bfe",
+      "userId": "auth0|60bc36b7c6a5fa006b943981",
+      "userName": "bos324457",
+      "imageUrl": "https://s.gravatar.com/avatar/eafaea3c64a417cd096c968315d428fd?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fbo.png",
+      "text": "よっす",
+      "createdAt": "2021-07-08T20:45:11+09:00",
+      "chatRoomId": "4be31599-0a92-4a8e-94ce-db550fd60e6e"
+    },
+    {
+      "id": "7e958ade-62f1-4e02-a24a-e7061a6847f1",
+      "userId": "otherUser",
+      "userName": "otherUser",
+      "imageUrl": "https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb",
+      "text": "やああああああああ",
+      "createdAt": "2021-07-08T20:45:16+09:00",
+      "chatRoomId": "4be31599-0a92-4a8e-94ce-db550fd60e6e"
+    },
+    {
+      "id": "6afa85e3-7a39-45a3-82a5-1f6ede05881a",
+      "userId": "auth0|60bc36b7c6a5fa006b943981",
+      "userName": "bos324457",
+      "imageUrl": "https://s.gravatar.com/avatar/eafaea3c64a417cd096c968315d428fd?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fbo.png",
+      "text": "いいんじゃないかあ",
+      "createdAt": "2021-07-08T20:45:22+09:00",
+      "chatRoomId": "4be31599-0a92-4a8e-94ce-db550fd60e6e"
+    },
+    {
+      "id": "b48e4584-e3cb-4814-ad50-78a023bb0b9d",
+      "userId": "otherUser",
+      "userName": "otherUser",
+      "imageUrl": "https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb",
+      "text": "やるねい",
+      "createdAt": "2021-07-08T20:45:31+09:00",
+      "chatRoomId": "4be31599-0a92-4a8e-94ce-db550fd60e6e"
+    },
+    {
+      "id": "d8d31c58-4cc2-429a-bc3c-59ec6bd481e4",
+      "userId": "auth0|60bc36b7c6a5fa006b943981",
+      "userName": "bos324457",
+      "imageUrl": "https://s.gravatar.com/avatar/eafaea3c64a417cd096c968315d428fd?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fbo.png",
+      "text": "ko",
+      "createdAt": "2021-07-10T10:01:08+09:00",
+      "chatRoomId": "4be31599-0a92-4a8e-94ce-db550fd60e6e"
     }
   ],
   "chatRoom": [
@@ -654,15 +735,20 @@
           "imageUrl": "https://s.gravatar.com/avatar/eafaea3c64a417cd096c968315d428fd?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fbo.png",
           "createdAt": "2021-07-03T21:18:15+09:00"
         }
-      ],
-      "messages": [
+      ]
+    },
+    {
+      "id": "4be31599-0a92-4a8e-94ce-db550fd60e6e",
+      "createrId": "auth0|60bc36b7c6a5fa006b943981",
+      "password": "我々と共に遊ぼう",
+      "roomName": "我々と共に遊ぼう",
+      "createdAt": "2021-07-08T20:37:03+09:00",
+      "users": [
         {
-          "id": "7a45f7ba-ca84-4039-bd6e-f440417f4d30",
-          "userId": "auth0|60bc36b7c6a5fa006b943981",
-          "userName": "bos324457",
+          "id": "auth0|60bc36b7c6a5fa006b943981",
+          "name": "bos324457",
           "imageUrl": "https://s.gravatar.com/avatar/eafaea3c64a417cd096c968315d428fd?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fbo.png",
-          "text": "どうも",
-          "createdAt": "2021-07-03T21:19:58+09:00"
+          "createdAt": "2021-07-08T20:37:03+09:00"
         }
       ]
     }

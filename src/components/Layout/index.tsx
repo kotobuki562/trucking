@@ -1,8 +1,9 @@
+/* eslint-disable react/display-name */
 import type { ReactNode, VFC } from 'react';
+import { memo } from 'react';
 
 import { Header } from './Header';
 import { Sidebar } from './Sidebar';
-import { memo } from 'react';
 
 type Props = {
   children: ReactNode;
@@ -13,7 +14,7 @@ export const Layout: VFC<Props> = memo((props) => {
       <Header />
       <div className="flex">
         <Sidebar />
-        <div className="h-full w-screen ml-14 mt-14 md:ml-64">
+        <div className="mt-14 ml-14 md:ml-64 w-screen h-full">
           {props.children}
         </div>
       </div>

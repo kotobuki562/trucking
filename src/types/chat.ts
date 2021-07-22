@@ -4,7 +4,6 @@ export type ChatRoom = {
   password: string;
   roomName: string;
   createdAt: Date | string;
-  messages: Message[];
   users: User[];
 };
 export type User = {
@@ -20,4 +19,5 @@ export type Message = {
   imageUrl: string;
   text: string;
   createdAt: Date | string;
+  chatRoomId: string;
 };

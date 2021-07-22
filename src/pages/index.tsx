@@ -1,12 +1,11 @@
-import React from 'react';
-import { memo, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
-import Lottie from 'react-lottie';
+/* eslint-disable react/display-name */
 import { useUser } from '@auth0/nextjs-auth0';
-import * as truckAnime from 'src/animations/truck.json';
+import { useRouter } from 'next/router';
+import { memo, useEffect } from 'react';
+import Lottie from 'react-lottie';
 import * as locationAnime from 'src/animations/location.json';
 import * as messageAnime from 'src/animations/message.json';
+import * as truckAnime from 'src/animations/truck.json';
 
 const Home = memo(() => {
   const { user } = useUser();
@@ -40,9 +39,9 @@ const Home = memo(() => {
 
   useEffect(() => {
     user ? router.push('/dashboard') : null;
-  }, [user]);
+  }, [router, user]);
   return (
-    <main className="text-white w-full md:flex">
+    <main className="md:flex w-full text-white">
       <div className="md:w-1/2 h-screen">
         <div className="flex flex-col items-center">
           <div className="w-60 h-60">
@@ -72,8 +71,8 @@ const Home = memo(() => {
         </div>
       </div>
 
-      <div className="md:w-1/2 h-screen bg-yellow-300 flex flex-col items-center">
-        <h2 className="font-semibold text-2xl text-blue-400">
+      <div className="flex flex-col items-center md:w-1/2 h-screen bg-yellow-300">
+        <h2 className="text-2xl font-semibold text-blue-400">
           ちゃちゃっと始めましょう。
         </h2>
       </div>

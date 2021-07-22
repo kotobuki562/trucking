@@ -1,10 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-console */
 import { gql, useMutation, useQuery, useSubscription } from '@apollo/client';
-import React from 'react';
 import { withPageAuthRequired } from '@auth0/nextjs-auth0';
-
 import { Layout } from 'src/components/Layout';
 
-export default withPageAuthRequired(function Dashboard() {
+export default withPageAuthRequired(() => {
   const { data: orderData } = useQuery(GET_ALL_ORDERS);
 
   console.log(orderData);

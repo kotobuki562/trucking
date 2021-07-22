@@ -1,5 +1,6 @@
 import type { DocumentContext, DocumentInitialProps } from 'next/document';
 import Document, { Head, Html, Main, NextScript } from 'next/document';
+
 class MyDocument extends Document {
   static async getInitialProps(
     ctx: DocumentContext
@@ -16,7 +17,7 @@ class MyDocument extends Document {
             content="vvCJ4rz9xa35J4qeFbrTbagOQxcUdKxqNhKI_PMeogE"
           />
         </Head>
-        <body className="duration-200 text-gray-800 dark:bg-blue-900 bg-blue-400">
+        <body className="text-gray-800 bg-blue-400 dark:bg-blue-900 duration-200">
           <Main />
           <NextScript />
         </body>
