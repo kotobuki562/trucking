@@ -12,6 +12,16 @@ export type User = {
   imageUrl: string;
   createdAt: Date | string;
 };
+
+type SubMessage = {
+  id: string;
+  userId: string;
+  userName: string;
+  imageUrl: string;
+  text: string;
+  createdAt: Date | string;
+};
+
 export type Message = {
   id: string;
   userId: string;
@@ -20,4 +30,5 @@ export type Message = {
   text: string;
   createdAt: Date | string;
   chatRoomId: string;
+  messages: SubMessage[];
 };

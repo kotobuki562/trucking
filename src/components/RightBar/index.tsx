@@ -3,6 +3,8 @@ import { format } from 'date-fns';
 import Link from 'next/link';
 import type { VFC } from 'react';
 import { memo } from 'react';
+import type { Message } from 'src/types/chat';
+import useSWR from 'swr';
 
 type Props = {
   id: string;
@@ -11,7 +13,19 @@ type Props = {
   roomName: string;
 };
 
+const fetcher = async (url: string) => {
+  const res = await fetch(url);
+  const data = await res.json();
+  return data;
+};
+
 export const RightBar: VFC<Props> = memo((props) => {
+  const { data: messagesInfo } = useSWR(
+    `http://localhost:3001/messages?chatRoomId=${props.id}`,
+    fetcher
+  );
+  const messages: Message[] = messagesInfo;
+
   return (
     <Link href={`/messages/${props.id}`}>
       <a>
@@ -30,6 +44,12 @@ export const RightBar: VFC<Props> = memo((props) => {
                 {format(new Date(props.createdAt), 'MM月dd日 HH:mm')}
               </p>
             ) : null}
+            <p className="text-xs">
+              {messages !== undefined
+                ? messages[messages.length - 1].text.slice(0, 10)
+                : null}
+              ...
+            </p>
           </div>
         </div>
       </a>

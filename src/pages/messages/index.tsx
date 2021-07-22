@@ -1,9 +1,10 @@
+/* eslint-disable react/display-name */
 /* eslint-disable no-console */
 import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import { useUser } from '@auth0/nextjs-auth0';
 import axios from 'axios';
 import { formatISO } from 'date-fns';
-import { useCallback, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { Layout } from 'src/components/Layout';
 import { RightBar } from 'src/components/RightBar';
 import type { ChatRoom } from 'src/types/chat';
@@ -16,7 +17,7 @@ const fetcher = async (url: string) => {
   return data;
 };
 
-export default withPageAuthRequired(() => {
+const CreateRooms = memo(() => {
   const { data: chatRooms } = useSWR('http://localhost:3001/chatRoom', fetcher);
 
   const { user } = useUser();
@@ -64,6 +65,7 @@ export default withPageAuthRequired(() => {
           imageUrl: user?.picture,
           text: text,
           createdAt: formatISO(new Date()),
+          messages: [],
         });
         return mutate('http://localhost:3001/chatRoom');
       })
@@ -127,3 +129,5 @@ export default withPageAuthRequired(() => {
     </Layout>
   );
 });
+
+export default withPageAuthRequired(CreateRooms);
