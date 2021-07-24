@@ -33,9 +33,9 @@ export const Sidebar = memo(() => {
           <Link key={link.href} href={link.href}>
             <a
               className={cc([
-                'w-full flex flex-col md:flex-row group-hover:flex-row group-hover:w-full py-2 hover:bg-gray-800 hover:text-yellow-300 duration-200 font-bold text-xl group-hover:flex md:flex md:pl-3 group-hover:pl-3 items-center',
+                'w-full flex flex-col md:flex-row group-hover:flex-row group-hover:w-full py-2 bg-yellow-300 hover:bg-white text-white hover:text-blue-400 duration-200 font-bold text-xl group-hover:flex md:flex md:pl-3 group-hover:pl-3 items-center',
                 router.asPath.match(link.href)
-                  ? 'bg-gray-800 text-yellow-300'
+                  ? 'bg-white text-blue-400'
                   : null,
               ])}>
               <div className="w-8">{link.icon}</div>

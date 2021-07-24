@@ -4,7 +4,7 @@ import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import { useUser } from '@auth0/nextjs-auth0';
 import axios from 'axios';
 import { formatISO } from 'date-fns';
-import { memo, useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Layout } from 'src/components/Layout';
 import { RightBar } from 'src/components/RightBar';
 import type { ChatRoom } from 'src/types/chat';
@@ -17,7 +17,7 @@ const fetcher = async (url: string) => {
   return data;
 };
 
-const CreateRooms = memo(() => {
+const CreateRooms = () => {
   const { data: chatRooms } = useSWR('http://localhost:3001/chatRoom', fetcher);
 
   const { user } = useUser();
@@ -59,7 +59,7 @@ const CreateRooms = memo(() => {
         console.log(data);
         const messageUuid = uuidv4();
         axios.post(`http://localhost:3001/chatRoom/${data.data.id}/messages`, {
-          id: messageUuid,
+          id: messageUuid + user?.sub,
           userId: user?.sub,
           userName: user?.nickname,
           imageUrl: user?.picture,
@@ -128,6 +128,6 @@ const CreateRooms = memo(() => {
       </div>
     </Layout>
   );
-});
+};
 
 export default withPageAuthRequired(CreateRooms);
