@@ -1,5 +1,6 @@
 /* eslint-disable react/display-name */
 /* eslint-disable no-console */
+import { gql, useMutation } from '@apollo/client';
 import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import { useUser } from '@auth0/nextjs-auth0';
 import axios from 'axios';
@@ -17,9 +18,77 @@ const fetcher = async (url: string) => {
   return data;
 };
 
+const ADD_CHATROOM = gql`
+  mutation MyMutation(
+    $createdAt: String!
+    $createrId: String!
+    $name: String!
+    $password: String!
+    $users: json = [
+      { id: id, name: name, imageUrl: imageUrl, createdAt: createdAt }
+    ]
+  ) {
+    insert_chatRooms_one(
+      object: {
+        createdAt: $createdAt
+        createrId: $createrId
+        name: $name
+        password: $password
+        users: $users
+      }
+    ) {
+      id
+      createdAt
+      createrId
+      name
+      password
+      users
+    }
+  }
+`;
+
+const ADD_MESSAGE = gql`
+  mutation MyMutation(
+    $chatRoomId: uuid
+    $createdAt: String!
+    $imageUrl: String!
+    $name: String!
+    $text: String!
+    $userId: String!
+  ) {
+    insert_messages_one(
+      object: {
+        chatRoomId: $chatRoomId
+        createdAt: $createdAt
+        imageUrl: $imageUrl
+        messages: []
+        name: $name
+        text: $text
+        userId: $userId
+      }
+    ) {
+      chatRoomId
+      userId
+      text
+      name
+      messages
+      imageUrl
+      createdAt
+    }
+  }
+`;
+
 const CreateRooms = () => {
   const { data: chatRooms } = useSWR('http://localhost:3001/chatRoom', fetcher);
-
+  const [addChatRoom] = useMutation(ADD_CHATROOM, {
+    onCompleted: () => {
+      setPassword('');
+      setRoomName('');
+      setText('');
+    },
+  });
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [addMessage] = useMutation(ADD_MESSAGE);
   const { user } = useUser();
   const uuid = uuidv4();
   const [roomName, setRoomName] = useState('');
@@ -34,6 +103,62 @@ const CreateRooms = () => {
   const handleChangeText = useCallback((e) => {
     return setText(e.target.value);
   }, []);
+
+  const handleClickCreateRoom = useCallback(async () => {
+    if (!roomName || !password || !user?.sub) {
+      return null;
+    } else {
+      return await addChatRoom({
+        variables: {
+          createrId: user?.sub,
+          password: password,
+          name: roomName,
+          createdAt: formatISO(new Date()),
+          users: [
+            {
+              id: `${user?.sub}`,
+              name: `${user?.nickname}`,
+              imageUrl: `${user?.picture}`,
+              createdAt: formatISO(new Date()),
+            },
+          ],
+        },
+      })
+        .then(async (result) => {
+          console.log(result.data);
+          const chatRoomId = await result.data.insert_chatRooms_one.id;
+          return await addMessage({
+            variables: {
+              chatRoomId: chatRoomId as string,
+              userId: user?.sub,
+              name: user?.nickname,
+              imageUrl: user?.picture,
+              text: text,
+              createdAt: formatISO(new Date()),
+              messages: [],
+            },
+          })
+            .then((result) => {
+              return console.log(result.data);
+            })
+            .catch((err) => {
+              return console.log(err);
+            });
+        })
+        .catch((error) => {
+          return console.log(error);
+        });
+    }
+  }, [
+    addChatRoom,
+    addMessage,
+    password,
+    roomName,
+    text,
+    user?.nickname,
+    user?.picture,
+    user?.sub,
+  ]);
 
   const handleClickAddPassword = useCallback(async () => {
     await axios
@@ -123,7 +248,7 @@ const CreateRooms = () => {
             </div>
           </div>
         </div>
-
+        <button onClick={handleClickCreateRoom}>Mutation</button>
         <button onClick={handleClickAddPassword}>作成</button>
       </div>
     </Layout>

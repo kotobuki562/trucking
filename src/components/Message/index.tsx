@@ -119,7 +119,7 @@ export const MessageBox: VFC<Props> = memo((props) => {
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
-          className="overflow-y-auto fixed inset-0 z-10"
+          className="overflow-y-auto fixed inset-0 z-50"
           onClose={handleClickCloseThread}>
           <div className="px-4 min-h-screen text-center">
             <Transition.Child

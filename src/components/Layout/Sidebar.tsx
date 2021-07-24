@@ -27,7 +27,7 @@ export const Sidebar = memo(() => {
   const router = useRouter();
 
   return (
-    <nav className="group flex fixed top-14 left-0 z-10 flex-col items-center hover:items-baseline md:items-baseline py-8 w-14 hover:w-64 md:w-64 h-full bg-yellow-300 border-none transition-all duration-300">
+    <nav className="group flex fixed top-14 left-0 z-20 flex-col items-center hover:items-baseline md:items-baseline py-8 w-14 hover:w-64 md:w-64 h-full bg-yellow-300 border-none transition-all duration-300">
       {links.map((link) => {
         return (
           <Link key={link.href} href={link.href}>

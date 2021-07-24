@@ -2,6 +2,7 @@
 /* eslint-disable react/display-name */
 /* eslint-disable no-console */
 import { useUser } from '@auth0/nextjs-auth0';
+import { ChevronDoubleDownIcon } from '@heroicons/react/outline';
 import axios from 'axios';
 import { formatISO } from 'date-fns';
 import type { VFC } from 'react';
@@ -107,19 +108,24 @@ export const MessagesId: VFC<Props> = memo((props) => {
 
   return (
     <div className="h-full">
-      <div className="flex justify-center items-center py-5 text-xl font-semibold dark:text-blue-100 bg-blue-100 dark:bg-blue-800 border-b-2 border-blue-200 dark:border-blue-600">
-        {roomInfo?.roomName}
+      <div className="flex fixed z-10 justify-center items-center pr-14 md:pr-64 w-full h-20 text-base md:text-xl font-semibold dark:text-blue-100 bg-blue-100 dark:bg-blue-800 dark:border-blue-600 shadow">
+        <p>#{roomInfo?.roomName}</p>
+
+        <button
+          className="flex justify-end p-2 ml-4 text-white bg-blue-300 rounded-full"
+          onClick={handleScrollToBottomOfList}>
+          <ChevronDoubleDownIcon className="w-4 md:w-6 h-4 md:h-6" />
+        </button>
       </div>
-      <div className="w-full h-full min-h-screen dark:text-blue-100 bg-blue-100 dark:bg-blue-800">
+      <div className="pt-20 w-full h-full min-h-screen dark:text-blue-100 bg-blue-100 dark:bg-blue-800">
         <div className="w-full">
           {messages?.map((data) => {
             return <MessageBox key={data.id} message={{ ...data }} />;
           })}
         </div>
-        <div id="bottom-of-list" className="pt-36" ref={messageRef} />
+        <div id="bottom-of-list" className="pt-28" ref={messageRef} />
       </div>
       <div className="fixed bottom-0 pr-14 md:pr-64 w-full bg-blue-100">
-        <button onClick={handleScrollToBottomOfList}>スクロール</button>
         <MessageForm
           onChange={handleChangeOneUserComment}
           value={oneUserComment}
