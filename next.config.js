@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 module.exports = {
   future: { strictPostcssConfiguration: true },
   i18n: { locales: ['ja'], defaultLocale: 'ja' },
@@ -13,5 +14,6 @@ module.exports = {
     REACT_APP_HASURA_GRAPHQL_ADMIN_SECRET:
       process.env.REACT_APP_HASURA_GRAPHQL_ADMIN_SECRET,
     REACT_APP_HASURA_GRAPHQL_URL: process.env.REACT_APP_HASURA_GRAPHQL_URL,
+    REACT_APP_HASURA_GRAPHQL_WSS: process.env.REACT_APP_HASURA_GRAPHQL_WSS,
   },
 };

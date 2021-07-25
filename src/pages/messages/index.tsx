@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 /* eslint-disable no-console */
-import { gql, useMutation } from '@apollo/client';
+import { gql, useMutation, useQuery } from '@apollo/client';
 import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import { useUser } from '@auth0/nextjs-auth0';
 import axios from 'axios';
@@ -17,6 +17,19 @@ const fetcher = async (url: string) => {
   const data = await res.json();
   return data;
 };
+
+const CHATROOM_SUBSCRIPTION = gql`
+  query MySubscription {
+    chatRooms {
+      createdAt
+      createrId
+      id
+      name
+      password
+      users
+    }
+  }
+`;
 
 const ADD_CHATROOM = gql`
   mutation MyMutation(
@@ -79,6 +92,9 @@ const ADD_MESSAGE = gql`
 `;
 
 const CreateRooms = () => {
+  const { data: subscriptionChatRoom } = useQuery(CHATROOM_SUBSCRIPTION);
+  console.log(subscriptionChatRoom);
+
   const { data: chatRooms } = useSWR('http://localhost:3001/chatRoom', fetcher);
   const [addChatRoom] = useMutation(ADD_CHATROOM, {
     onCompleted: () => {
@@ -137,6 +153,11 @@ const CreateRooms = () => {
               createdAt: formatISO(new Date()),
               messages: [],
             },
+            refetchQueries: [
+              {
+                query: CHATROOM_SUBSCRIPTION,
+              },
+            ],
           })
             .then((result) => {
               return console.log(result.data);
