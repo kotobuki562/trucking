@@ -2,7 +2,7 @@ export type ChatRoom = {
   id: string;
   createrId: string;
   password: string;
-  roomName: string;
+  name: string;
   createdAt: Date | string;
   users: User[];
 };

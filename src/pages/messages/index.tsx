@@ -1,23 +1,11 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable react/display-name */
-/* eslint-disable no-console */
 import { gql, useMutation, useSubscription } from '@apollo/client';
 import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import { useUser } from '@auth0/nextjs-auth0';
-import axios from 'axios';
 import { formatISO } from 'date-fns';
 import { useCallback, useState } from 'react';
 import { Layout } from 'src/components/Layout';
 import { RightBar } from 'src/components/RightBar';
 import type { ChatRoom } from 'src/types/chat';
-import useSWR, { mutate } from 'swr';
-import { v4 as uuidv4 } from 'uuid';
-
-const fetcher = async (url: string) => {
-  const res = await fetch(url);
-  const data = await res.json();
-  return data;
-};
 
 const CHATROOM_SUBSCRIPTION = gql`
   subscription MySubscription {
@@ -93,10 +81,9 @@ const ADD_MESSAGE = gql`
 `;
 
 const CreateRooms = () => {
-  const { data: subscriptionChatRoom } = useSubscription(CHATROOM_SUBSCRIPTION);
-  console.log(subscriptionChatRoom);
-
-  const { data: chatRooms } = useSWR('http://localhost:3001/chatRoom', fetcher);
+  const { data: subscriptionChatRoom, loading: isLoading } = useSubscription(
+    CHATROOM_SUBSCRIPTION
+  );
   const [addChatRoom] = useMutation(ADD_CHATROOM, {
     onCompleted: () => {
       setPassword('');
@@ -107,7 +94,6 @@ const CreateRooms = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [addMessage] = useMutation(ADD_MESSAGE);
   const { user } = useUser();
-  const uuid = uuidv4();
   const [roomName, setRoomName] = useState('');
   const [password, setPassword] = useState('');
   const [text, setText] = useState('');
@@ -140,36 +126,20 @@ const CreateRooms = () => {
             },
           ],
         },
-      })
-        .then(async (result) => {
-          console.log(result.data);
-          const chatRoomId = await result.data.insert_chatRooms_one.id;
-          return await addMessage({
-            variables: {
-              chatRoomId: chatRoomId as string,
-              userId: user?.sub,
-              name: user?.nickname,
-              imageUrl: user?.picture,
-              text: text,
-              createdAt: formatISO(new Date()),
-              messages: [],
-            },
-            // refetchQueries: [
-            //   {
-            //     query: CHATROOM_SUBSCRIPTION,
-            //   },
-            // ],
-          })
-            .then((result) => {
-              return console.log(result.data);
-            })
-            .catch((err) => {
-              return console.log(err);
-            });
-        })
-        .catch((error) => {
-          return console.log(error);
+      }).then(async (result) => {
+        const chatRoomId = await result.data.insert_chatRooms_one.id;
+        return await addMessage({
+          variables: {
+            chatRoomId: chatRoomId as string,
+            userId: user?.sub,
+            name: user?.nickname,
+            imageUrl: user?.picture,
+            text: text,
+            createdAt: formatISO(new Date()),
+            messages: [],
+          },
         });
+      });
     }
   }, [
     addChatRoom,
@@ -182,57 +152,12 @@ const CreateRooms = () => {
     user?.sub,
   ]);
 
-  const handleClickAddPassword = useCallback(async () => {
-    await axios
-      .post('http://localhost:3001/chatRoom', {
-        id: uuid,
-        createrId: user?.sub,
-        password: password,
-        roomName: roomName,
-        createdAt: formatISO(new Date()),
-        users: [
-          {
-            id: user?.sub,
-            name: user?.nickname,
-            imageUrl: user?.picture,
-            createdAt: formatISO(new Date()),
-          },
-        ],
-      })
-      .then((data) => {
-        setPassword('');
-        setRoomName('');
-        setText('');
-        console.log(data);
-        const messageUuid = uuidv4();
-        axios.post(`http://localhost:3001/chatRoom/${data.data.id}/messages`, {
-          id: messageUuid + user?.sub,
-          userId: user?.sub,
-          userName: user?.nickname,
-          imageUrl: user?.picture,
-          text: text,
-          createdAt: formatISO(new Date()),
-          messages: [],
-        });
-        return mutate('http://localhost:3001/chatRoom');
-      })
-      .catch((error) => {
-        return console.log(error);
-      });
-  }, [
-    password,
-    roomName,
-    text,
-    user?.nickname,
-    user?.picture,
-    user?.sub,
-    uuid,
-  ]);
+  const arrayChatRoom: ChatRoom[] = subscriptionChatRoom?.chatRooms;
 
-  const arrayChatRoom: ChatRoom[] = chatRooms;
   return (
     <Layout>
       <div className="group overflow-y-scroll fixed right-0 w-14 hover:w-64 md:w-64 h-screen bg-blue-300 rounded-l-2xl duration-300">
+        {isLoading === true ? <div>Loading</div> : null}
         {arrayChatRoom?.map((room) => {
           return <RightBar key={room.id} {...room} />;
         })}
@@ -271,7 +196,6 @@ const CreateRooms = () => {
           </div>
         </div>
         <button onClick={handleClickCreateRoom}>Mutation</button>
-        <button onClick={handleClickAddPassword}>作成</button>
       </div>
     </Layout>
   );
