@@ -1,8 +1,11 @@
+/* eslint-disable no-console */
 import { gql, useMutation, useSubscription } from '@apollo/client';
 import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import { useUser } from '@auth0/nextjs-auth0';
+import cc from 'classcat';
 import { formatISO } from 'date-fns';
 import { useCallback, useState } from 'react';
+import { ADD_MESSAGE } from 'src/apollo/schema';
 import { Layout } from 'src/components/Layout';
 import { RightBar } from 'src/components/RightBar';
 import type { ChatRoom } from 'src/types/chat';
@@ -14,8 +17,23 @@ const CHATROOM_SUBSCRIPTION = gql`
       createrId
       id
       name
-      password
-      users
+    }
+  }
+`;
+
+const ADD_PARTICIPANTS = gql`
+  mutation CreateParticipants(
+    $userId: String!
+    $roomId: uuid
+    $createdAt: String!
+  ) {
+    insert_participants_one(
+      object: { userId: $userId, roomId: $roomId, createdAt: $createdAt }
+    ) {
+      id
+      userId
+      roomId
+      createdAt
     }
   }
 `;
@@ -26,9 +44,6 @@ const ADD_CHATROOM = gql`
     $createrId: String!
     $name: String!
     $password: String!
-    $users: json = [
-      { id: id, name: name, imageUrl: imageUrl, createdAt: createdAt }
-    ]
   ) {
     insert_chatRooms_one(
       object: {
@@ -36,7 +51,6 @@ const ADD_CHATROOM = gql`
         createrId: $createrId
         name: $name
         password: $password
-        users: $users
       }
     ) {
       id
@@ -44,46 +58,44 @@ const ADD_CHATROOM = gql`
       createrId
       name
       password
-      users
     }
   }
 `;
 
-const ADD_MESSAGE = gql`
-  mutation MyMutation(
-    $chatRoomId: uuid
-    $createdAt: String!
-    $imageUrl: String!
-    $name: String!
-    $text: String!
-    $userId: String!
-  ) {
-    insert_messages_one(
-      object: {
-        chatRoomId: $chatRoomId
-        createdAt: $createdAt
-        imageUrl: $imageUrl
-        messages: []
-        name: $name
-        text: $text
-        userId: $userId
-      }
-    ) {
-      chatRoomId
-      userId
-      text
-      name
-      messages
-      imageUrl
-      createdAt
-    }
-  }
-`;
+// const ADD_CHATROOM = gql`
+//   mutation MyMutation(
+//     $createdAt: String!
+//     $createrId: String!
+//     $name: String!
+//     $password: String!
+//     $users: json = [
+//       { id: id, name: name, imageUrl: imageUrl, createdAt: createdAt }
+//     ]
+//   ) {
+//     insert_chatRooms_one(
+//       object: {
+//         createdAt: $createdAt
+//         createrId: $createrId
+//         name: $name
+//         password: $password
+//         users: $users
+//       }
+//     ) {
+//       id
+//       createdAt
+//       createrId
+//       name
+//       password
+//       users
+//     }
+//   }
+// `;
 
 const CreateRooms = () => {
   const { data: subscriptionChatRoom, loading: isLoading } = useSubscription(
     CHATROOM_SUBSCRIPTION
   );
+  const arrayChatRoom: ChatRoom[] = subscriptionChatRoom?.chatRooms;
   const [addChatRoom] = useMutation(ADD_CHATROOM, {
     onCompleted: () => {
       setPassword('');
@@ -93,6 +105,7 @@ const CreateRooms = () => {
   });
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [addMessage] = useMutation(ADD_MESSAGE);
+  const [addPrticipants] = useMutation(ADD_PARTICIPANTS);
   const { user } = useUser();
   const [roomName, setRoomName] = useState('');
   const [password, setPassword] = useState('');
@@ -126,24 +139,48 @@ const CreateRooms = () => {
             },
           ],
         },
-      }).then(async (result) => {
-        const chatRoomId = await result.data.insert_chatRooms_one.id;
-        return await addMessage({
-          variables: {
-            chatRoomId: chatRoomId as string,
-            userId: user?.sub,
-            name: user?.nickname,
-            imageUrl: user?.picture,
-            text: text,
-            createdAt: formatISO(new Date()),
-            messages: [],
-          },
+      })
+        .then(async (result) => {
+          const chatRoomId = await result.data.insert_chatRooms_one.id;
+          await addPrticipants({
+            variables: {
+              roomId: chatRoomId as string,
+              userId: user?.sub,
+              createdAt: formatISO(new Date()),
+            },
+          })
+            .then((data) => {
+              return console.log(data);
+            })
+            .catch((err) => {
+              return console.log(err);
+            });
+          return await addMessage({
+            variables: {
+              chatRoomId: chatRoomId as string,
+              userId: user?.sub,
+              name: user?.nickname,
+              imageUrl: user?.picture,
+              text: text,
+              createdAt: formatISO(new Date()),
+              messages: [],
+            },
+          })
+            .then((data) => {
+              return console.log(data);
+            })
+            .catch((err) => {
+              return console.log(err);
+            });
+        })
+        .catch((error) => {
+          return console.log(error);
         });
-      });
     }
   }, [
     addChatRoom,
     addMessage,
+    addPrticipants,
     password,
     roomName,
     text,
@@ -152,12 +189,13 @@ const CreateRooms = () => {
     user?.sub,
   ]);
 
-  const arrayChatRoom: ChatRoom[] = subscriptionChatRoom?.chatRooms;
-
   return (
     <Layout>
-      <div className="group overflow-y-scroll fixed right-0 w-14 hover:w-64 md:w-64 h-screen bg-blue-300 rounded-l-2xl duration-300">
-        {isLoading === true ? <div>Loading</div> : null}
+      <div
+        className={cc([
+          'group overflow-y-scroll fixed right-0 w-14 hover:w-64 md:w-64 h-screen rounded-l-2xl duration-300 shadow-lg',
+          isLoading === true ? 'animate-pulse bg-blue-200' : 'bg-blue-300',
+        ])}>
         {arrayChatRoom?.map((room) => {
           return <RightBar key={room.id} {...room} />;
         })}

@@ -54,11 +54,11 @@ const apolloClient = new ApolloClient({
   uri: hasuraUri,
   link: splitLink,
   cache: new InMemoryCache(),
-  // defaultOptions: {
-  //   watchQuery: {
-  //     fetchPolicy: 'cache-and-network',
-  //   },
-  // },
+  defaultOptions: {
+    watchQuery: {
+      fetchPolicy: 'cache-and-network',
+    },
+  },
 });
 
 export { apolloClient };

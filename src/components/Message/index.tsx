@@ -84,7 +84,7 @@ export const MessageBox: VFC<Props> = memo((props) => {
       : await axios
           .patch(`http://localhost:3001/messages/${props.message.id}`, {
             messages: [
-              ...message?.messages,
+              ...message.messages,
               {
                 id: uuid,
                 userId: 'otherUser',
@@ -112,6 +112,7 @@ export const MessageBox: VFC<Props> = memo((props) => {
   const handleClickOpenThread = useCallback(() => {
     return setIsOpen(true);
   }, []);
+
   return (
     <div
       className="group w-full whitespace-pre-wrap hover:bg-blue-50 dark:hover:bg-blue-700 border-b border-blue-200 dark:border-blue-600 duration-200"
@@ -149,7 +150,7 @@ export const MessageBox: VFC<Props> = memo((props) => {
                 <Dialog.Title
                   as="h3"
                   className="text-lg font-semibold text-blue-500">
-                  {message?.text.slice(0, 20)}...
+                  {message?.text?.slice(0, 20)}...
                 </Dialog.Title>
                 <div className="overflow-y-scroll mt-2 h-[400px]">
                   {message?.messages?.map((data) => {
@@ -207,7 +208,7 @@ export const MessageBox: VFC<Props> = memo((props) => {
         <div className="flex w-full">
           <div className="mr-4 min-w-[2.5rem]">
             <img
-              src={props.message.imageUrl}
+              src={props.message?.imageUrl}
               alt="My profile"
               className="w-10 h-10 rounded-full"
             />
@@ -215,12 +216,10 @@ export const MessageBox: VFC<Props> = memo((props) => {
           <div className="w-full">
             <div className="flex justify-between items-center mb-4 w-full">
               <div className="flex items-center">
-                <p className="mr-2 text-lg font-bold">
-                  {props.message.userName}
-                </p>
+                <p className="mr-2 text-lg font-bold">{props.message?.name}</p>
                 <p className="text-blue-400">
                   {format(
-                    new Date(props.message.createdAt),
+                    new Date(props.message?.createdAt),
                     'yyyy/MM/dd HH:mm'
                   )}
                 </p>
@@ -274,13 +273,13 @@ export const MessageBox: VFC<Props> = memo((props) => {
               </div>
             </div>
 
-            <p className="mb-2">{props.message.text}</p>
-            {props.message.messages.length !== 0 ? (
+            <p className="mb-2">{props.message?.text}</p>
+            {props.message?.messages?.length !== 0 ? (
               <div>
                 <button
                   onClick={handleClickOpenThread}
                   className="text-blue-400 hover:text-blue-500 duration-200 focus:outline-none">
-                  {props.message.messages.length}件の返信
+                  {props.message?.messages?.length}件の返信
                 </button>
               </div>
             ) : null}

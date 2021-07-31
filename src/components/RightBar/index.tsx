@@ -1,11 +1,12 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/display-name */
+import { gql, useSubscription } from '@apollo/client';
 import { format } from 'date-fns';
 import Link from 'next/link';
 import type { VFC } from 'react';
 import { memo } from 'react';
 import type { Message } from 'src/types/chat';
-import useSWR from 'swr';
 
 type Props = {
   id: string;
@@ -14,18 +15,31 @@ type Props = {
   name: string;
 };
 
-const fetcher = async (url: string) => {
-  const res = await fetch(url);
-  const data = await res.json();
-  return data;
-};
+const MESSAGES_SUBSCRIPTION = gql`
+  subscription MySubscription($chatRoomId: uuid = chatRoomId) {
+    messages(
+      limit: 1
+      order_by: { createdAt: desc }
+      where: { chatRoomId: { _eq: $chatRoomId } }
+    ) {
+      chatRoomId
+      text
+    }
+  }
+`;
 
 export const RightBar: VFC<Props> = memo((props) => {
-  // const { data: messagesInfo } = useSWR(
-  //   `http://localhost:3001/messages?chatRoomId=${props.id}`,
-  //   fetcher
-  // );
-  // const messages: Message[] = messagesInfo;
+  const { data: subscribeMessages, loading: isLoading } = useSubscription(
+    MESSAGES_SUBSCRIPTION,
+    {
+      variables: {
+        chatRoomId: props.id,
+      },
+    }
+  );
+  const messages: Message[] = subscribeMessages?.messages;
+  // eslint-disable-next-line no-console
+  console.log(messages, isLoading);
 
   return (
     <Link href={`/messages/${props.id}`}>
@@ -45,12 +59,11 @@ export const RightBar: VFC<Props> = memo((props) => {
                 {format(new Date(props.createdAt), 'MM月dd日 HH:mm')}
               </p>
             ) : null}
-            {/* <p className="text-xs">
-              {messages !== undefined
-                ? messages[messages.length - 1].text.slice(0, 10)
+            <p className="text-xs">
+              {messages && messages[0]?.text !== undefined
+                ? `${messages[0].text.slice(0, 10)}...`
                 : null}
-              ...
-            </p> */}
+            </p>
           </div>
         </div>
       </a>

@@ -4,12 +4,9 @@ export type ChatRoom = {
   password: string;
   name: string;
   createdAt: Date | string;
-  users: User[];
 };
 export type User = {
-  id: string;
-  name: string;
-  imageUrl: string;
+  userId: string;
   createdAt: Date | string;
 };
 
@@ -25,7 +22,7 @@ type SubMessage = {
 export type Message = {
   id: string;
   userId: string;
-  userName: string;
+  name: string;
   imageUrl: string;
   text: string;
   createdAt: Date | string;
