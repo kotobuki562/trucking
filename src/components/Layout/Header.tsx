@@ -9,6 +9,7 @@ import { links } from 'src/components/Layout/layoutInfo';
 export const Header = memo(() => {
   const { theme, setTheme } = useTheme();
   const { user } = useUser();
+
   const handleClickTheme = useCallback(() => {
     return setTheme(theme === 'light' ? 'dark' : 'light');
   }, [setTheme, theme]);
