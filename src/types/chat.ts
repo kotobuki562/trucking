@@ -10,7 +10,7 @@ export type User = {
   createdAt: Date | string;
 };
 
-type SubMessage = {
+export type SubMessage = {
   id: string;
   userId: string;
   userName: string;

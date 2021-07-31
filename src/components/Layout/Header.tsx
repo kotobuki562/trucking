@@ -14,10 +14,10 @@ export const Header = memo(() => {
     return setTheme(theme === 'light' ? 'dark' : 'light');
   }, [setTheme, theme]);
   return (
-    <header className="flex fixed z-10 justify-between items-center w-full h-14 text-white bg-blue-400 dark:bg-blue-900 duration-200">
-      <div className="flex justify-center md:w-64">
+    <header className="flex fixed z-10 justify-between items-center w-full h-14 text-white bg-blue-400 dark:bg-blue-900 border-b duration-200">
+      <div className="flex justify-center w-14 md:w-64">
         <img
-          className="w-14 h-14 rounded-full"
+          className="w-12 h-12 rounded-full border border-white"
           src={`${user?.picture || icons.userIcon}`}
           alt="USER"
         />

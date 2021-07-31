@@ -42,6 +42,7 @@ const Home = memo(() => {
   }, [router, user]);
   return (
     <main className="md:flex w-full text-white">
+      <a href="/api/auth/login">LOGIN</a>
       <div className="md:w-1/2 h-screen">
         <div className="flex flex-col items-center">
           <div className="w-60 h-60">

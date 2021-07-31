@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { gql, useMutation, useSubscription } from '@apollo/client';
 import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import { useUser } from '@auth0/nextjs-auth0';
@@ -62,35 +61,6 @@ const ADD_CHATROOM = gql`
   }
 `;
 
-// const ADD_CHATROOM = gql`
-//   mutation MyMutation(
-//     $createdAt: String!
-//     $createrId: String!
-//     $name: String!
-//     $password: String!
-//     $users: json = [
-//       { id: id, name: name, imageUrl: imageUrl, createdAt: createdAt }
-//     ]
-//   ) {
-//     insert_chatRooms_one(
-//       object: {
-//         createdAt: $createdAt
-//         createrId: $createrId
-//         name: $name
-//         password: $password
-//         users: $users
-//       }
-//     ) {
-//       id
-//       createdAt
-//       createrId
-//       name
-//       password
-//       users
-//     }
-//   }
-// `;
-
 const CreateRooms = () => {
   const { data: subscriptionChatRoom, loading: isLoading } = useSubscription(
     CHATROOM_SUBSCRIPTION
@@ -148,13 +118,8 @@ const CreateRooms = () => {
               userId: user?.sub,
               createdAt: formatISO(new Date()),
             },
-          })
-            .then((data) => {
-              return console.log(data);
-            })
-            .catch((err) => {
-              return console.log(err);
-            });
+          });
+
           return await addMessage({
             variables: {
               chatRoomId: chatRoomId as string,
@@ -165,15 +130,10 @@ const CreateRooms = () => {
               createdAt: formatISO(new Date()),
               messages: [],
             },
-          })
-            .then((data) => {
-              return console.log(data);
-            })
-            .catch((err) => {
-              return console.log(err);
-            });
+          });
         })
         .catch((error) => {
+          // eslint-disable-next-line no-console
           return console.log(error);
         });
     }

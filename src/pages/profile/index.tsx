@@ -1,11 +1,12 @@
-import React from 'react';
-import { Layout } from 'src/components/Layout';
 import { withPageAuthRequired } from '@auth0/nextjs-auth0';
+import { Layout } from 'src/components/Layout';
 
-export default withPageAuthRequired(function Profile() {
+const Profile = () => {
   return (
     <Layout>
       <div>Profile</div>
     </Layout>
   );
-});
+};
+
+export default withPageAuthRequired(Profile);

@@ -31,4 +31,33 @@ const ADD_MESSAGE = gql`
   }
 `;
 
+// const ADD_CHATROOM = gql`
+//   mutation MyMutation(
+//     $createdAt: String!
+//     $createrId: String!
+//     $name: String!
+//     $password: String!
+//     $users: json = [
+//       { id: id, name: name, imageUrl: imageUrl, createdAt: createdAt }
+//     ]
+//   ) {
+//     insert_chatRooms_one(
+//       object: {
+//         createdAt: $createdAt
+//         createrId: $createrId
+//         name: $name
+//         password: $password
+//         users: $users
+//       }
+//     ) {
+//       id
+//       createdAt
+//       createrId
+//       name
+//       password
+//       users
+//     }
+//   }
+// `;
+
 export { ADD_MESSAGE };
