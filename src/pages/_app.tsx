@@ -14,13 +14,13 @@ const App = ({
 }: AppProps): React.ReactElement<AppProps> => {
   const { user } = pageProps;
   return (
-    <ApolloProvider client={apolloClient}>
-      <UserProvider user={user}>
+    <UserProvider user={user}>
+      <ApolloProvider client={apolloClient}>
         <ThemeProvider attribute="class">
           <Component {...pageProps} />
         </ThemeProvider>
-      </UserProvider>
-    </ApolloProvider>
+      </ApolloProvider>
+    </UserProvider>
   );
 };
 
