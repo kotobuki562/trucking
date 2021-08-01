@@ -71,7 +71,7 @@ export const ChatRoomCard: VFC<Props> = memo((props) => {
           {isLoading ? <p>Loading</p> : null}
           {messages !== undefined ? (
             <p className="flex relative items-center mb-2 ml-10 whitespace-pre-wrap">
-              {messages[0].text}
+              {messages[0]?.text}
               <span className="absolute top-0 -left-10 px-1 text-xs text-blue-500 bg-yellow-300 rounded-lg">
                 New!
               </span>
