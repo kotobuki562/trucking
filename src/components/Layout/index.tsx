@@ -14,7 +14,7 @@ export const Layout: VFC<Props> = memo((props) => {
       <Header />
       <div className="flex">
         <Sidebar />
-        <div className="mt-14 ml-14 md:ml-64 w-screen h-full">
+        <div className="mt-14 sm:ml-14 md:ml-64 w-screen h-full">
           {props.children}
         </div>
       </div>

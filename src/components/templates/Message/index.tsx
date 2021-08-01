@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-handler-names */
 /* eslint-disable react/display-name */
 /* eslint-disable no-console */
-import { gql, useMutation, useQuery, useSubscription } from '@apollo/client';
+import { gql, useMutation, useSubscription } from '@apollo/client';
 import { useUser } from '@auth0/nextjs-auth0';
 import { ChevronDoubleDownIcon } from '@heroicons/react/outline';
 import cc from 'classcat';
@@ -11,57 +11,47 @@ import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { ADD_MESSAGE } from 'src/apollo/schema';
 import { MessageBox } from 'src/components/Message';
 import { MessageForm } from 'src/components/MessageForm';
-import type { ChatRoom, Message } from 'src/types/chat';
+import type { ChatRoomWithUsersMessages } from 'src/types/chat';
 
 type Props = {
   id: string;
 };
 
-const GET_CHATROOM = gql`
-  query MyQuery($id: uuid = id) {
+const MESSAGES_SUBSCRIPTION = gql`
+  subscription MySubscription($id: uuid = id) {
     chatRooms_by_pk(id: $id) {
       name
       id
       createrId
       createdAt
-    }
-  }
-`;
-
-const MESSAGES_SUBSCRIPTION = gql`
-  subscription MySubscription($chatRoomId: uuid = chatRoomId) {
-    messages(
-      order_by: { createdAt: asc }
-      where: { chatRoomId: { _eq: $chatRoomId } }
-    ) {
-      id
-      chatRoomId
-      userId
-      text
-      name
-      createdAt
-      imageUrl
-      messages
+      messages(order_by: { createdAt: asc }) {
+        id
+        chatRoomId
+        createdAt
+        imageUrl
+        messages
+        name
+        text
+        userId
+      }
     }
   }
 `;
 
 export const MessagesId: VFC<Props> = memo((props) => {
   const { user } = useUser();
-  const { data: chatRoom } = useQuery(GET_CHATROOM, {
+  const [addMessage] = useMutation(ADD_MESSAGE);
+  const {
+    data: subscribeChatRoomWithUsersMessages,
+    loading: isLoadingMessages,
+  } = useSubscription(MESSAGES_SUBSCRIPTION, {
     variables: {
       id: props.id,
     },
   });
-  const room: ChatRoom = chatRoom?.chatRooms_by_pk;
-  const [addMessage] = useMutation(ADD_MESSAGE);
-  const { data: subscribeMessages, loading: isLoadingMessages } =
-    useSubscription(MESSAGES_SUBSCRIPTION, {
-      variables: {
-        chatRoomId: props.id,
-      },
-    });
-  const messages: Message[] = subscribeMessages?.messages;
+  const roomWithUsersMessages: ChatRoomWithUsersMessages =
+    subscribeChatRoomWithUsersMessages?.chatRooms_by_pk;
+
   const messageRef = useRef<HTMLDivElement>(null);
   const handleScrollToBottomOfList = useCallback(() => {
     messageRef?.current?.scrollIntoView({
@@ -107,12 +97,12 @@ export const MessagesId: VFC<Props> = memo((props) => {
 
   useEffect(() => {
     handleScrollToBottomOfList();
-  }, [handleScrollToBottomOfList, messages]);
+  }, [handleScrollToBottomOfList, subscribeChatRoomWithUsersMessages]);
 
   return (
     <div className="h-full">
-      <div className="flex fixed z-10 justify-center items-center pr-14 md:pr-64 w-full h-14 sm:h-20 text-base md:text-xl font-semibold text-white dark:text-blue-100 bg-blue-400 dark:bg-blue-800 bg-opacity-80 dark:border-blue-600 shadow">
-        <p>#{room?.name}</p>
+      <div className="flex fixed z-10 justify-center items-center sm:pr-14 md:pr-64 w-full h-14 sm:h-20 text-base md:text-xl font-semibold text-white dark:text-blue-100 bg-blue-400 dark:bg-blue-800 bg-opacity-80 dark:border-blue-600 shadow">
+        <p>#{roomWithUsersMessages?.name}</p>
 
         <button
           className="flex justify-end p-1 sm:p-2 ml-4 text-white bg-blue-300 rounded-full"
@@ -126,17 +116,17 @@ export const MessagesId: VFC<Props> = memo((props) => {
           isLoadingMessages === true ? 'animate-pulse' : null,
         ])}>
         <div className="w-full">
-          {messages?.map((data) => {
+          {roomWithUsersMessages?.messages?.map((data) => {
             return <MessageBox key={data.id} message={{ ...data }} />;
           })}
         </div>
         <div id="bottom-of-list" className="pt-14" ref={messageRef} />
       </div>
-      <div className="fixed bottom-0 pr-14 md:pr-64 w-full h-14 bg-blue-100">
+      <div className="fixed bottom-0 sm:pr-14 md:pr-64 w-full h-14 bg-blue-100">
         <MessageForm
           onChange={handleChangeOneUserComment}
           value={oneUserComment}
-          placeholder={`${room?.name} へ送信`}
+          placeholder={`${roomWithUsersMessages?.name} へ送信`}
           onClick={handleClickAddOneUserComment}
         />
       </div>

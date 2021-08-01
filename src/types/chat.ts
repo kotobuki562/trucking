@@ -5,6 +5,7 @@ export type ChatRoom = {
   name: string;
   createdAt: Date | string;
 };
+
 export type User = {
   userId: string;
   createdAt: Date | string;
@@ -28,4 +29,12 @@ export type Message = {
   createdAt: Date | string;
   chatRoomId: string;
   messages: SubMessage[];
+};
+
+export type ChatRoomWithUsersMessages = {
+  id: string;
+  name: string;
+  createdAt: Date | string;
+  messages: Message[];
+  participants: User[];
 };
