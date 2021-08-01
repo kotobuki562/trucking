@@ -114,7 +114,7 @@ export const MessageBox: VFC<Props> = memo((props) => {
           <div className="w-full">
             <div className="flex justify-between items-center mb-4 w-full">
               <div className="flex flex-col">
-                <p className="text-base sm:text-lg font-bold">
+                <p className="text-base sm:text-lg font-bold whitespace-pre-wrap">
                   {props.message?.name}
                 </p>
                 <p className="text-blue-400">
@@ -128,7 +128,7 @@ export const MessageBox: VFC<Props> = memo((props) => {
               <div className="flex justify-center items-center">
                 <Menu as="div" className="inline-block relative text-left">
                   <div className="flex items-center">
-                    <Menu.Button className="p-1 text-blue-700 bg-blue-200 rounded-full focus:outline-none">
+                    <Menu.Button className="p-1 text-blue-700 group-hover:text-blue-500 bg-blue-200 group-hover:bg-blue-100 rounded-full duration-200 focus:outline-none">
                       <DotsVerticalIcon className="w-5 h-5" />
                     </Menu.Button>
                   </div>

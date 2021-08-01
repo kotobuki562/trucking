@@ -58,28 +58,32 @@ export const SubMessageBox: VFC<Props> = memo((props) => {
                   return (
                     <div
                       key={data.id}
-                      className="p-4 hover:bg-blue-50 border-b border-blue-200 duration-200">
-                      <div className="flex w-full">
-                        <div className="mr-4 min-w-[1.75rem]">
+                      className="p-4 text-sm sm:text-base hover:bg-blue-50 border-b border-blue-200 duration-200">
+                      <div className="flex items-center w-full">
+                        <div className="mr-4 min-w-[2.5rem]">
                           <img
                             src={data.imageUrl}
                             alt="My profile"
-                            className="w-7 h-7 rounded-full"
+                            className="w-10 h-10 rounded-full"
                           />
                         </div>
                         <div>
-                          <div className="flex items-center mb-2 text-base">
-                            <p className="mr-2 font-bold">{data.userName}</p>
-                            <p className="text-xs font-semibold text-blue-400">
+                          <div className="flex flex-col justify-center">
+                            <p className="font-bold text-gray-600">
+                              {data.name}
+                            </p>
+                            <p className="text-xs sm:text-sm font-semibold text-blue-400">
                               {format(
                                 new Date(data.createdAt),
                                 'yyyy/MM/dd HH:mm'
                               )}
                             </p>
                           </div>
-                          <p className="text-sm">{data.text}</p>
                         </div>
                       </div>
+                      <p className="mt-2 ml-14 whitespace-pre-wrap">
+                        {data.text}
+                      </p>
                     </div>
                   );
                 })}

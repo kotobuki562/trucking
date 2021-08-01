@@ -14,7 +14,7 @@ export type User = {
 export type SubMessage = {
   id: string;
   userId: string;
-  userName: string;
+  name: string;
   imageUrl: string;
   text: string;
   createdAt: Date | string;

@@ -145,7 +145,7 @@ export const CreateChatRoom = memo(() => {
         type="button"
         onClick={handleClickOpen}
         className="p-2 text-white bg-yellow-300 hover:bg-yellow-200 rounded-full duration-200 focus:outline-none">
-        <HashtagIcon className="w-6 sm:w-10 h-6 sm:h-10" />
+        <HashtagIcon className="w-10 h-10" />
       </button>
       <Transition appear show={isModal} as={Fragment}>
         <Dialog
