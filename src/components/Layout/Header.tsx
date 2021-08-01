@@ -14,7 +14,6 @@ import router from 'next/router';
 import { useTheme } from 'next-themes';
 import { icons } from 'public/icon';
 import { Fragment, memo, useCallback } from 'react';
-import { useSwrUsers } from 'src/libs/auth0';
 
 const links = [
   {
@@ -37,9 +36,6 @@ const links = [
 export const Header = memo(() => {
   const { theme, setTheme } = useTheme();
   const { user } = useUser();
-  const { data: users } = useSwrUsers('/users');
-  // eslint-disable-next-line no-console
-  console.log(users);
 
   const handleClickTheme = useCallback(() => {
     return setTheme(theme === 'light' ? 'dark' : 'light');
