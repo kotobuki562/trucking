@@ -146,7 +146,7 @@ export const MessageBox: VFC<Props> = memo((props) => {
                           <button
                             type="button"
                             onClick={handleClickOpenThread}
-                            className="py-2 px-4 text-sm font-medium text-white bg-black bg-opacity-20 hover:bg-opacity-30 rounded-md focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus:outline-none">
+                            className="py-2 px-4 text-sm font-medium text-white bg-blue-400 hover:bg-blue-300 rounded-md duration-200">
                             スレッドに参加
                           </button>
                         </Menu.Item>

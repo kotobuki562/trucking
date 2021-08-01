@@ -38,9 +38,6 @@ export const RightBar: VFC<Props> = memo((props) => {
     }
   );
   const messages: Message[] = subscribeMessages?.messages;
-  // eslint-disable-next-line no-console
-  console.log(messages, isLoading);
-
   return (
     <Link href={`/messages/${props.id}`}>
       <a>
