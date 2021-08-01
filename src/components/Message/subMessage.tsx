@@ -53,7 +53,7 @@ export const SubMessageBox: VFC<Props> = memo((props) => {
                 className="text-lg font-semibold text-blue-500">
                 {props.title.slice(0, 20)}...
               </Dialog.Title>
-              <div className="overflow-y-scroll mt-2 h-[400px]">
+              <div className="overflow-y-scroll mt-2 h-full max-h-[300px]">
                 {props.messages.map((data) => {
                   return (
                     <div

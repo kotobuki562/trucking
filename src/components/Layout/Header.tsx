@@ -1,10 +1,8 @@
 /* eslint-disable react/display-name */
 import { useUser } from '@auth0/nextjs-auth0';
-import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import { icons } from 'public/icon';
 import { memo, useCallback } from 'react';
-import { links } from 'src/components/Layout/layoutInfo';
 
 export const Header = memo(() => {
   const { theme, setTheme } = useTheme();
@@ -22,16 +20,6 @@ export const Header = memo(() => {
           alt="USER"
         />
       </div>
-
-      <nav>
-        {links.map((link) => {
-          return (
-            <Link key={link.pathName} href={link.href}>
-              <a>{link.pathName}</a>
-            </Link>
-          );
-        })}
-      </nav>
       <button onClick={handleClickTheme}>change</button>
       <a href="/api/auth/logout">LOGOUT</a>
     </header>

@@ -91,7 +91,7 @@ export const MessageBox: VFC<Props> = memo((props) => {
 
   return (
     <div
-      className="group w-full whitespace-pre-wrap hover:bg-blue-50 dark:hover:bg-blue-700 border-b border-blue-200 dark:border-blue-600 duration-200"
+      className="group w-full text-sm sm:text-base whitespace-pre-wrap hover:bg-blue-50 dark:hover:bg-blue-700 border-b border-blue-200 dark:border-blue-600 duration-200"
       key={props.message.id}>
       <SubMessageBox
         show={isOpen}
@@ -113,8 +113,10 @@ export const MessageBox: VFC<Props> = memo((props) => {
           </div>
           <div className="w-full">
             <div className="flex justify-between items-center mb-4 w-full">
-              <div className="flex items-center">
-                <p className="mr-2 text-lg font-bold">{props.message?.name}</p>
+              <div className="flex flex-col">
+                <p className="text-base sm:text-lg font-bold">
+                  {props.message?.name}
+                </p>
                 <p className="text-blue-400">
                   {format(
                     new Date(props.message?.createdAt),
