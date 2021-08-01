@@ -70,12 +70,15 @@ export const ChatRoomCard: VFC<Props> = memo((props) => {
           </p>
           {isLoading ? <p>Loading</p> : null}
           {messages !== undefined ? (
-            <p className="flex relative items-center mb-2 ml-10 whitespace-pre-wrap">
-              {messages[0]?.text}
-              <span className="absolute top-0 -left-10 px-1 text-xs text-blue-500 bg-yellow-300 rounded-lg">
-                New!
-              </span>
-            </p>
+            <div className="mb-2">
+              <p className="flex relative items-center ml-10 whitespace-pre-wrap">
+                {messages[0]?.text}
+                <span className="absolute top-0 -left-10 px-1 text-xs text-blue-500 bg-yellow-300 rounded-lg">
+                  New!
+                </span>
+              </p>
+              <p className="text-blue-400">{messages.length}件のメッセージ</p>
+            </div>
           ) : null}
           {isLoadingUsers ? <p>Loading</p> : null}
           {users !== undefined ? <p>{users.length}名の参加者</p> : null}
