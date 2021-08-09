@@ -19,17 +19,17 @@ const links = [
   {
     pathName: 'DASHBOARD',
     href: '/dashboard',
-    icon: <HomeIcon className="w-5 h-5" />,
+    icon: <HomeIcon className="w-6 h-6" />,
   },
   {
     pathName: 'PROFILE',
     href: '/profile',
-    icon: <UserIcon className="w-5 h-5" />,
+    icon: <UserIcon className="w-6 h-6" />,
   },
   {
     pathName: 'MESSAGES',
     href: '/messages',
-    icon: <ChatIcon className="w-5 h-5" />,
+    icon: <ChatIcon className="w-6 h-6" />,
   },
 ];
 
@@ -50,7 +50,7 @@ export const Header = memo(() => {
         />
       </div>
       <button onClick={handleClickTheme}>change</button>
-      <Menu as="div" className="inline-block relative text-left">
+      <Menu as="div" className="inline-block relative text-lg text-left">
         <div className="flex items-center mr-4">
           <Menu.Button className="p-1 text-blue-700 bg-blue-200 rounded-lg focus:outline-none">
             <MenuIcon className="w-7 h-7" />
@@ -66,7 +66,7 @@ export const Header = memo(() => {
           leaveTo="transform scale-95">
           <Menu.Items
             as="div"
-            className="absolute right-0 mt-2 w-36 bg-yellow-300 rounded-md divide-y divide-gray-100 ring-1 ring-black ring-opacity-5 shadow-lg origin-top-right focus:outline-none">
+            className="absolute right-0 mt-2 w-48 bg-yellow-300 rounded-md divide-y divide-gray-100 ring-1 ring-black ring-opacity-5 shadow-lg origin-top-right focus:outline-none">
             <div className="flex flex-col py-1 px-1">
               <Menu.Item as="div" className="flex flex-col">
                 {links.map((link) => {
@@ -74,22 +74,22 @@ export const Header = memo(() => {
                     <Link key={link.href} href={link.href}>
                       <a
                         className={cc([
-                          'flex items-center p-1 mb-1 font-semibold text-white hover:text-blue-400 hover:bg-white rounded-md duration-200',
+                          'flex items-center p-2 mb-1 font-semibold text-white hover:text-blue-400 hover:bg-white rounded-md duration-200',
                           router.asPath.match(link.href)
                             ? 'bg-white text-blue-400'
                             : null,
                         ])}>
-                        <div className="mr-1 w-5">{link.icon}</div>
+                        <div className="mr-2 w-5">{link.icon}</div>
                         <p>{link.pathName}</p>
                       </a>
                     </Link>
                   );
                 })}
                 <a
-                  className="flex items-center p-1 font-semibold text-blue-400 hover:bg-white rounded-md duration-200"
+                  className="flex items-center p-2 font-semibold text-blue-400 hover:bg-white rounded-md duration-200"
                   href="/api/auth/logout">
-                  <div className="mr-1 w-5">
-                    <LogoutIcon className="w-5 h-5" />
+                  <div className="mr-2 w-6">
+                    <LogoutIcon className="w-6 h-6" />
                   </div>
 
                   <p>LOGOUT</p>
