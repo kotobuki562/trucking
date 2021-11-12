@@ -2,12 +2,10 @@
 /* eslint-disable react/display-name */
 /* eslint-disable no-console */
 import { withPageAuthRequired } from '@auth0/nextjs-auth0';
-import { formatISO } from 'date-fns';
 import { useRouter } from 'next/router';
 import { Layout } from 'src/components/Layout';
 import { MessagesId } from 'src/components/templates/Message';
 
-console.log(formatISO(new Date()));
 const Messages = () => {
   const router = useRouter();
   const chatRoomId = router.query.id as string;

@@ -38,9 +38,6 @@ const CreateRooms = () => {
   const arrayChatRoom: ChatRoomWithUsersMessages[] =
     subscriptionChatRoom?.chatRooms;
 
-  // eslint-disable-next-line no-console
-  console.log(arrayChatRoom);
-
   return (
     <Layout>
       <div
